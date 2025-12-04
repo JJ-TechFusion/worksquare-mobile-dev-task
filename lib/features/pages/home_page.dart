@@ -30,15 +30,6 @@ class _HomePageState extends State<HomePage> {
         title: const H2(''),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              // Navigate to search page
-              Navigator.of(context).pushNamed(RouteNames.search);
-            },
-          ),
-        ],
       ),
       body: Consumer<PropertyProvider>(
         builder: (context, propertyProvider, child) {

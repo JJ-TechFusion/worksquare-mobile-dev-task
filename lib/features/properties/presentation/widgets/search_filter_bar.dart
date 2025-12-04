@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:dreamdwell/core/shared/widgets/custom_text.dart';
-import 'package:dreamdwell/core/shared/widgets/dropdown.dart';
 import 'package:dreamdwell/core/shared/widgets/textfields/custom_field.dart';
 import 'package:dreamdwell/core/theme/app_colors.dart';
 import 'package:dreamdwell/core/utils/constant.dart';
@@ -38,7 +37,7 @@ class _SearchFilterBarState extends State<SearchFilterBar> {
   void _performSearch() {
     // Cancel previous timer
     _debounceTimer?.cancel();
-    
+
     // Start new timer with 500ms delay
     _debounceTimer = Timer(const Duration(milliseconds: 500), () {
       widget.onSearch(
@@ -70,54 +69,41 @@ class _SearchFilterBarState extends State<SearchFilterBar> {
 
   bool get _hasActiveFilters {
     return _searchController.text.isNotEmpty ||
-           _selectedLocation != null ||
-           _selectedPropertyType != null;
+        _selectedLocation != null ||
+        _selectedPropertyType != null;
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
+      decoration: BoxDecoration(color: Colors.white),
       child: Column(
         children: [
-          // Search Field using TextInputField
           TextInputField(
             hintText: 'Search properties by title or location...',
             controller: _searchController,
             prefixIcon: const Icon(Icons.search),
-            suffixIcon: _searchController.text.isNotEmpty
-                ? GestureDetector(
-                    onTap: () {
-                      _searchController.clear();
-                      setState(() {});
-                      _performImmediateSearch();
-                    },
-                    child: const Icon(Icons.clear, color: Colors.grey),
-                  )
-                : null,
+            suffixIcon:
+                _searchController.text.isNotEmpty
+                    ? GestureDetector(
+                      onTap: () {
+                        _searchController.clear();
+                        setState(() {});
+                        _performImmediateSearch();
+                      },
+                      child: const Icon(Icons.clear, color: Colors.grey),
+                    )
+                    : null,
             onChanged: (value) {
-              setState(() {}); // Update UI for suffix icon
+              setState(() {});
               _performSearch(); // Debounced search
             },
             onEditingDone: _performImmediateSearch,
           ),
-          
-          verticalSpace(16),
-          
-          // Filter Row
+
           Row(
             children: [
-              // Location Filter using custom dropdown button
               Expanded(
                 child: _buildCompactDropdown(
                   label: 'Location',
@@ -126,16 +112,16 @@ class _SearchFilterBarState extends State<SearchFilterBar> {
                   items: ['All Locations', ...widget.availableLocations],
                   onChanged: (value) {
                     setState(() {
-                      _selectedLocation = value == 'All Locations' ? null : value;
+                      _selectedLocation =
+                          value == 'All Locations' ? null : value;
                     });
                     _performImmediateSearch();
                   },
                 ),
               ),
-              
+
               horizontalSpace(16),
-              
-              // Property Type Filter using custom dropdown button
+
               Expanded(
                 child: _buildCompactDropdown(
                   label: 'Property Type',
@@ -144,7 +130,8 @@ class _SearchFilterBarState extends State<SearchFilterBar> {
                   items: ['All Types', ...widget.availablePropertyTypes],
                   onChanged: (value) {
                     setState(() {
-                      _selectedPropertyType = value == 'All Types' ? null : value;
+                      _selectedPropertyType =
+                          value == 'All Types' ? null : value;
                     });
                     _performImmediateSearch();
                   },
@@ -152,8 +139,7 @@ class _SearchFilterBarState extends State<SearchFilterBar> {
               ),
             ],
           ),
-          
-          // Clear Filters Button - only show when there are active filters
+
           if (_hasActiveFilters) ...[
             verticalSpace(12),
             SizedBox(
@@ -164,7 +150,9 @@ class _SearchFilterBarState extends State<SearchFilterBar> {
                 label: const BodyText('Clear All Filters'),
                 style: OutlinedButton.styleFrom(
                   foregroundColor: AppColor.primary,
-                  side: BorderSide(color: AppColor.primary.withValues(alpha: 0.3)),
+                  side: BorderSide(
+                    color: AppColor.primary.withValues(alpha: 0.3),
+                  ),
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
@@ -195,14 +183,15 @@ class _SearchFilterBarState extends State<SearchFilterBar> {
         ),
         verticalSpace(8),
         GestureDetector(
-          onTap: () => _showDropdownModal(
-            context: context,
-            title: label,
-            items: items,
-            selectedValue: value,
-            hint: hint,
-            onSelected: onChanged,
-          ),
+          onTap:
+              () => _showDropdownModal(
+                context: context,
+                title: label,
+                items: items,
+                selectedValue: value,
+                hint: hint,
+                onSelected: onChanged,
+              ),
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
             decoration: BoxDecoration(
@@ -215,15 +204,15 @@ class _SearchFilterBarState extends State<SearchFilterBar> {
                 Expanded(
                   child: BodySmall(
                     value ?? hint,
-                    color: value != null ? AppColor.primaryText : AppColor.upholdGrey,
+                    color:
+                        value != null
+                            ? AppColor.primaryText
+                            : AppColor.upholdGrey,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                Icon(
-                  Icons.arrow_drop_down,
-                  color: AppColor.upholdGrey,
-                ),
+                Icon(Icons.arrow_drop_down, color: AppColor.upholdGrey),
               ],
             ),
           ),
@@ -263,7 +252,7 @@ class _SearchFilterBarState extends State<SearchFilterBar> {
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
-              
+
               // Title
               Padding(
                 padding: const EdgeInsets.all(20),
@@ -278,7 +267,7 @@ class _SearchFilterBarState extends State<SearchFilterBar> {
                   ],
                 ),
               ),
-              
+
               // Items list
               ConstrainedBox(
                 constraints: BoxConstraints(
@@ -289,18 +278,28 @@ class _SearchFilterBarState extends State<SearchFilterBar> {
                   itemCount: items.length,
                   itemBuilder: (context, index) {
                     final item = items[index];
-                    final isSelected = item == selectedValue || 
+                    final isSelected =
+                        item == selectedValue ||
                         (selectedValue == null && item == hint);
-                    
+
                     return ListTile(
                       title: BodyText(
                         item,
-                        color: isSelected ? AppColor.primary : AppColor.primaryText,
-                        fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                        color:
+                            isSelected
+                                ? AppColor.primary
+                                : AppColor.primaryText,
+                        fontWeight:
+                            isSelected ? FontWeight.w600 : FontWeight.normal,
                       ),
-                      trailing: isSelected 
-                          ? Icon(Icons.check, color: AppColor.primary, size: 20)
-                          : null,
+                      trailing:
+                          isSelected
+                              ? Icon(
+                                Icons.check,
+                                color: AppColor.primary,
+                                size: 20,
+                              )
+                              : null,
                       onTap: () {
                         Navigator.pop(context);
                         onSelected(item == hint ? null : item);
@@ -309,8 +308,7 @@ class _SearchFilterBarState extends State<SearchFilterBar> {
                   },
                 ),
               ),
-              
-              // Bottom padding for safe area
+
               SizedBox(height: MediaQuery.of(context).padding.bottom + 20),
             ],
           ),

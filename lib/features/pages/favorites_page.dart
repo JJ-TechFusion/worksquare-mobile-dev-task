@@ -1,3 +1,4 @@
+import 'package:dreamdwell/core/shared/widgets/buttons/animated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:dreamdwell/core/shared/widgets/custom_text.dart';
@@ -5,6 +6,7 @@ import 'package:dreamdwell/core/theme/app_colors.dart';
 import 'package:dreamdwell/core/routes/route_names.dart';
 import 'package:dreamdwell/core/routes/route_arguments.dart';
 import 'package:dreamdwell/features/properties/properties.dart';
+import '../../core/shared/widgets/buttons/roundedbutton.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
@@ -27,9 +29,13 @@ class _FavoritesPageState extends State<FavoritesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const H2('Favorites'),
+        title: Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: const BodyText('Favorites'),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
+        toolbarHeight: 80,
       ),
       body: Consumer<PropertyProvider>(
         builder: (context, propertyProvider, child) {
@@ -38,7 +44,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
           if (state.isLoading) {
             return ListView.builder(
               padding: const EdgeInsets.all(20),
-              itemCount: 2, // Show 2 shimmer items
+              itemCount: 2,
               itemBuilder: (context, index) => const PropertyShimmer(),
             );
           }
@@ -95,25 +101,17 @@ class _FavoritesPageState extends State<FavoritesPage> {
                       color: Colors.grey[500],
                     ),
                     const SizedBox(height: 24),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton.icon(
-                        onPressed: () {
-                          // Navigate to home tab to browse properties
-                          Navigator.of(
-                            context,
-                          ).pushReplacementNamed(RouteNames.main);
-                        },
-                        icon: const Icon(Icons.search),
-                        label: const Text('Browse Properties'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColor.primary,
-                          foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
+                    AnimatedButton(
+                      onTap: () {
+                        Navigator.of(
+                          context,
+                        ).pushReplacementNamed(RouteNames.main);
+                      },
+                      child: CustomButton(
+                        title: 'Browse Properties',
+                        color: AppColor.primary,
+                        textColor: Colors.white,
+                        borderRadius: 12,
                       ),
                     ),
                   ],
@@ -133,7 +131,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.favorite, size: 20, color: Colors.red),
                     const SizedBox(width: 8),
                     BodyText(
                       '${state.favoriteProperties.length} ${state.favoriteProperties.length == 1 ? 'property' : 'properties'} saved',
@@ -191,7 +188,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
+        return AlertDialog.adaptive(
           title: const H3('Clear All Favorites'),
           content: const BodyText(
             'Are you sure you want to remove all properties from your favorites? This action cannot be undone.',

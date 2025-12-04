@@ -74,7 +74,6 @@ class _MyOnboardingScreenState extends State<OnboardingScreen> {
   );
 
   void _handleLastPage() {
-    // Navigate to main app
     Navigator.of(context).pushReplacementNamed(RouteNames.main);
   }
 
@@ -164,9 +163,10 @@ class _MyOnboardingScreenState extends State<OnboardingScreen> {
                       width: 80,
                       height: 5,
                       decoration: BoxDecoration(
-                        color: _currentIndex == index
-                            ? AppColor.primary
-                            : AppColor.lightText.withValues(alpha: 0.3),
+                        color:
+                            _currentIndex == index
+                                ? AppColor.primary
+                                : AppColor.lightText.withValues(alpha: 0.3),
                         borderRadius: BorderRadius.circular(2.5),
                       ),
                     ),

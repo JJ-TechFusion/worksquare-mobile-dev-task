@@ -18,7 +18,6 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-    // Load properties when the page initializes
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<PropertyProvider>(context, listen: false).loadProperties();
     });
@@ -28,9 +27,13 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const H2('Search Properties'),
+        title: Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: const BodyText('Search Properties'),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
+        toolbarHeight: 80,
       ),
       body: Consumer<PropertyProvider>(
         builder: (context, propertyProvider, child) {
@@ -54,7 +57,9 @@ class _SearchPageState extends State<SearchPage> {
                   );
                 },
                 availableLocations: _extractUniqueLocations(state.properties),
-                availablePropertyTypes: _extractUniquePropertyTypes(state.properties),
+                availablePropertyTypes: _extractUniquePropertyTypes(
+                  state.properties,
+                ),
               ),
               if (state.status == PropertyStatus.loading)
                 Expanded(
@@ -70,16 +75,14 @@ class _SearchPageState extends State<SearchPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.search_off, size: 80, color: Colors.grey),
+                        const Icon(
+                          Icons.search_off,
+                          size: 80,
+                          color: Colors.grey,
+                        ),
                         verticalSpace(16),
                         const H3('No properties found', color: Colors.grey),
                         verticalSpace(16),
-                        ElevatedButton(
-                          onPressed: () {
-                            propertyProvider.clearSearchAndFilters();
-                          },
-                          child: const BodyText('Show All Properties'),
-                        ),
                       ],
                     ),
                   ),
@@ -90,7 +93,10 @@ class _SearchPageState extends State<SearchPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0,
+                          vertical: 8.0,
+                        ),
                         child: BodySmall(
                           '${state.properties.length} properties found',
                           color: Colors.grey,
@@ -108,7 +114,9 @@ class _SearchPageState extends State<SearchPage> {
                               onTap: () {
                                 Navigator.of(context).pushNamed(
                                   RouteNames.propertyDetails,
-                                  arguments: PropertyDetailsArguments(propertyId: property.id),
+                                  arguments: PropertyDetailsArguments(
+                                    propertyId: property.id,
+                                  ),
                                 );
                               },
                               onFavoriteToggle: () {
