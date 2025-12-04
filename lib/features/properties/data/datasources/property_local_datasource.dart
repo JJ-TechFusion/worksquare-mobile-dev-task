@@ -11,8 +11,6 @@ abstract class PropertyLocalDataSource {
 }
 
 class PropertyLocalDataSourceImpl implements PropertyLocalDataSource {
-  // Simple in-memory storage - works perfectly for demo purposes
-  // In a production app, you would use SharedPreferences, Hive, or SQLite
   List<PropertyModel> _cachedProperties = [];
   final Set<int> _favoriteIds = {};
 

@@ -18,29 +18,42 @@ class PropertyRepositoryImpl implements PropertyRepository {
   @override
   Future<Either<String, List<PropertyEntity>>> getProperties() async {
     try {
-      // First try to get from cache
       final cachedProperties = await localDataSource.getCachedProperties();
       if (cachedProperties.isNotEmpty) {
-        logMessage('PropertyRepository', 'Returning cached properties: ${cachedProperties.length}');
-        return Right(cachedProperties.map((model) => model.toEntity()).toList());
+        logMessage(
+          'PropertyRepository',
+          'Returning cached properties: ${cachedProperties.length}',
+        );
+        return Right(
+          cachedProperties.map((model) => model.toEntity()).toList(),
+        );
       }
 
-      // If no cache, fetch from remote (JSON file)
       final response = await remoteDataSource.getProperties();
-      
+
       if (response.success && response.data != null) {
         final List<dynamic> propertiesJson = response.data as List<dynamic>;
-        final properties = propertiesJson
-            .map((json) => PropertyModel.fromJson(json as Map<String, dynamic>))
-            .toList();
-        
-        // Cache the properties
+        final properties =
+            propertiesJson
+                .map(
+                  (json) =>
+                      PropertyModel.fromJson(json as Map<String, dynamic>),
+                )
+                .toList();
+
         await localDataSource.cacheProperties(properties);
-        
-        logMessage('PropertyRepository', 'Fetched ${properties.length} properties from remote');
+
+        logMessage(
+          'PropertyRepository',
+          'Fetched ${properties.length} properties from remote',
+        );
         return Right(properties.map((model) => model.toEntity()).toList());
       } else {
-        return Left(response.message.isNotEmpty ? response.message : 'Failed to fetch properties');
+        return Left(
+          response.message.isNotEmpty
+              ? response.message
+              : 'Failed to fetch properties',
+        );
       }
     } catch (e) {
       logMessage('PropertyRepository', 'Error fetching properties: $e');
@@ -51,26 +64,21 @@ class PropertyRepositoryImpl implements PropertyRepository {
   @override
   Future<Either<String, PropertyEntity>> getPropertyById(int id) async {
     try {
-      // First try to get from cache
       final cachedProperty = await localDataSource.getCachedPropertyById(id);
       if (cachedProperty != null) {
         logMessage('PropertyRepository', 'Returning cached property: $id');
         return Right(cachedProperty.toEntity());
       }
 
-      // If not in cache, get all properties and find the one
       final propertiesResult = await getProperties();
-      return propertiesResult.fold(
-        (error) => Left(error),
-        (properties) {
-          try {
-            final property = properties.firstWhere((p) => p.id == id);
-            return Right(property);
-          } catch (e) {
-            return Left('Property with id $id not found');
-          }
-        },
-      );
+      return propertiesResult.fold((error) => Left(error), (properties) {
+        try {
+          final property = properties.firstWhere((p) => p.id == id);
+          return Right(property);
+        } catch (e) {
+          return Left('Property with id $id not found');
+        }
+      });
     } catch (e) {
       logMessage('PropertyRepository', 'Error fetching property by id: $e');
       return Left('Failed to fetch property: $e');
@@ -86,46 +94,70 @@ class PropertyRepositoryImpl implements PropertyRepository {
     String? propertyType,
   }) async {
     try {
-      // Get all properties first
       final propertiesResult = await getProperties();
-      
-      return propertiesResult.fold(
-        (error) => Left(error),
-        (properties) {
-          List<PropertyEntity> filteredProperties = properties;
 
-          // Apply filters
-          if (query != null && query.isNotEmpty) {
-            filteredProperties = filteredProperties.where((property) =>
-                property.title.toLowerCase().contains(query.toLowerCase()) ||
-                property.location.toLowerCase().contains(query.toLowerCase())).toList();
-          }
+      return propertiesResult.fold((error) => Left(error), (properties) {
+        List<PropertyEntity> filteredProperties = properties;
 
-          if (location != null && location.isNotEmpty) {
-            filteredProperties = filteredProperties.where((property) =>
-                property.location.toLowerCase().contains(location.toLowerCase())).toList();
-          }
+        if (query != null && query.isNotEmpty) {
+          filteredProperties =
+              filteredProperties
+                  .where(
+                    (property) =>
+                        property.title.toLowerCase().contains(
+                          query.toLowerCase(),
+                        ) ||
+                        property.location.toLowerCase().contains(
+                          query.toLowerCase(),
+                        ),
+                  )
+                  .toList();
+        }
 
-          if (minBedrooms != null) {
-            filteredProperties = filteredProperties.where((property) =>
-                property.bedrooms >= minBedrooms).toList();
-          }
+        if (location != null && location.isNotEmpty) {
+          filteredProperties =
+              filteredProperties
+                  .where(
+                    (property) => property.location.toLowerCase().contains(
+                      location.toLowerCase(),
+                    ),
+                  )
+                  .toList();
+        }
 
-          if (maxBedrooms != null) {
-            filteredProperties = filteredProperties.where((property) =>
-                property.bedrooms <= maxBedrooms).toList();
-          }
+        if (minBedrooms != null) {
+          filteredProperties =
+              filteredProperties
+                  .where((property) => property.bedrooms >= minBedrooms)
+                  .toList();
+        }
 
-          if (propertyType != null && propertyType.isNotEmpty) {
-            filteredProperties = filteredProperties.where((property) =>
-                property.status.any((status) => 
-                    status.toLowerCase().contains(propertyType.toLowerCase()))).toList();
-          }
+        if (maxBedrooms != null) {
+          filteredProperties =
+              filteredProperties
+                  .where((property) => property.bedrooms <= maxBedrooms)
+                  .toList();
+        }
 
-          logMessage('PropertyRepository', 'Search returned ${filteredProperties.length} properties');
-          return Right(filteredProperties);
-        },
-      );
+        if (propertyType != null && propertyType.isNotEmpty) {
+          filteredProperties =
+              filteredProperties
+                  .where(
+                    (property) => property.status.any(
+                      (status) => status.toLowerCase().contains(
+                        propertyType.toLowerCase(),
+                      ),
+                    ),
+                  )
+                  .toList();
+        }
+
+        logMessage(
+          'PropertyRepository',
+          'Search returned ${filteredProperties.length} properties',
+        );
+        return Right(filteredProperties);
+      });
     } catch (e) {
       logMessage('PropertyRepository', 'Error searching properties: $e');
       return Left('Failed to search properties: $e');
@@ -137,21 +169,25 @@ class PropertyRepositoryImpl implements PropertyRepository {
     try {
       final favoriteIds = await localDataSource.getFavoritePropertyIds();
       final propertiesResult = await getProperties();
-      
-      return propertiesResult.fold(
-        (error) => Left(error),
-        (properties) {
-          final favoriteProperties = properties
-              .where((property) => favoriteIds.contains(property.id))
-              .map((property) => property.copyWith(isFavorite: true))
-              .toList();
-          
-          logMessage('PropertyRepository', 'Returning ${favoriteProperties.length} favorite properties');
-          return Right(favoriteProperties);
-        },
-      );
+
+      return propertiesResult.fold((error) => Left(error), (properties) {
+        final favoriteProperties =
+            properties
+                .where((property) => favoriteIds.contains(property.id))
+                .map((property) => property.copyWith(isFavorite: true))
+                .toList();
+
+        logMessage(
+          'PropertyRepository',
+          'Returning ${favoriteProperties.length} favorite properties',
+        );
+        return Right(favoriteProperties);
+      });
     } catch (e) {
-      logMessage('PropertyRepository', 'Error fetching favorite properties: $e');
+      logMessage(
+        'PropertyRepository',
+        'Error fetching favorite properties: $e',
+      );
       return Left('Failed to fetch favorite properties: $e');
     }
   }
@@ -160,7 +196,10 @@ class PropertyRepositoryImpl implements PropertyRepository {
   Future<Either<String, void>> addToFavorites(int propertyId) async {
     try {
       await localDataSource.addToFavorites(propertyId);
-      logMessage('PropertyRepository', 'Added property $propertyId to favorites');
+      logMessage(
+        'PropertyRepository',
+        'Added property $propertyId to favorites',
+      );
       return const Right(null);
     } catch (e) {
       logMessage('PropertyRepository', 'Error adding to favorites: $e');
@@ -172,7 +211,10 @@ class PropertyRepositoryImpl implements PropertyRepository {
   Future<Either<String, void>> removeFromFavorites(int propertyId) async {
     try {
       await localDataSource.removeFromFavorites(propertyId);
-      logMessage('PropertyRepository', 'Removed property $propertyId from favorites');
+      logMessage(
+        'PropertyRepository',
+        'Removed property $propertyId from favorites',
+      );
       return const Right(null);
     } catch (e) {
       logMessage('PropertyRepository', 'Error removing from favorites: $e');
