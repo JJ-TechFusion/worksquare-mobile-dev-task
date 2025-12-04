@@ -33,7 +33,6 @@ class OnboardingPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Image placeholder - replace with actual images
           Icon(
             _getIconForImage(image),
             size: isLandscape ? 120 : 200,
@@ -41,7 +40,6 @@ class OnboardingPage extends StatelessWidget {
           ),
           verticalSpace(isLandscape ? 20 : 40),
 
-          // Title
           Center(
             child: H2(
               title,
@@ -50,7 +48,7 @@ class OnboardingPage extends StatelessWidget {
             ),
           ),
           verticalSpace(10),
-          // Subtitle
+
           Center(
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -68,7 +66,6 @@ class OnboardingPage extends StatelessWidget {
   }
 
   IconData _getIconForImage(String image) {
-    // Map image names to icons - replace with actual images later
     switch (image) {
       case 'onboard1':
         return Icons.search;

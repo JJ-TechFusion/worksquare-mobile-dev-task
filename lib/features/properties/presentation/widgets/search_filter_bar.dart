@@ -191,7 +191,7 @@ class _SearchFilterBarState extends State<SearchFilterBar> {
                 onSelected: onChanged,
               ),
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
             decoration: BoxDecoration(
               border: Border.all(color: AppColor.upholdGrey.withAlpha(90)),
               borderRadius: BorderRadius.circular(10),

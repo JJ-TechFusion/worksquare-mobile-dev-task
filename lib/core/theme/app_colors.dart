@@ -9,7 +9,7 @@ class AppColor {
   static const lightText = Color(0xFF878787);
   static const hintTextColor = Color(0XFFA6A8B0);
 
-  static const primary = Color(0xFF159BDA);
+  static const primary = Color(0xFF4A90E2);
   static const primary2 = Color(0xFF1F9A98);
   static const green = Color(0xFF2EB872);
   static const darkPrimary = Color(0xFF36454F);

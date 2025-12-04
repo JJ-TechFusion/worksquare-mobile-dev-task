@@ -33,6 +33,7 @@ class _SearchPageState extends State<SearchPage> {
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
+        toolbarHeight: 80,
       ),
       body: Consumer<PropertyProvider>(
         builder: (context, propertyProvider, child) {
@@ -69,19 +70,21 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                 )
               else if (state.properties.isEmpty)
-                Padding(
-                  padding: const EdgeInsets.only(top: 150),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.search_off,
-                        size: 80,
-                        color: Colors.grey,
-                      ),
-                      verticalSpace(16),
-                      const H3('No properties found', color: Colors.grey),
-                    ],
+                Expanded(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.search_off,
+                          size: 80,
+                          color: Colors.grey,
+                        ),
+                        verticalSpace(16),
+                        const H3('No properties found', color: Colors.grey),
+                        verticalSpace(16),
+                      ],
+                    ),
                   ),
                 )
               else

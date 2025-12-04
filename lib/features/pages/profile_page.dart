@@ -14,6 +14,7 @@ class ProfilePage extends StatelessWidget {
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
+        toolbarHeight: 80,
       ),
       body: const Center(
         child: Column(

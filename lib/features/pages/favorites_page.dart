@@ -6,7 +6,6 @@ import 'package:dreamdwell/core/theme/app_colors.dart';
 import 'package:dreamdwell/core/routes/route_names.dart';
 import 'package:dreamdwell/core/routes/route_arguments.dart';
 import 'package:dreamdwell/features/properties/properties.dart';
-
 import '../../core/shared/widgets/buttons/roundedbutton.dart';
 
 class FavoritesPage extends StatefulWidget {
@@ -36,6 +35,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
+        toolbarHeight: 80,
       ),
       body: Consumer<PropertyProvider>(
         builder: (context, propertyProvider, child) {
@@ -44,7 +44,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
           if (state.isLoading) {
             return ListView.builder(
               padding: const EdgeInsets.all(20),
-              itemCount: 2, // Show 2 shimmer items
+              itemCount: 2,
               itemBuilder: (context, index) => const PropertyShimmer(),
             );
           }
@@ -107,7 +107,12 @@ class _FavoritesPageState extends State<FavoritesPage> {
                           context,
                         ).pushReplacementNamed(RouteNames.main);
                       },
-                      child: CustomButton(title: 'Browse Properties'),
+                      child: CustomButton(
+                        title: 'Browse Properties',
+                        color: AppColor.primary,
+                        textColor: Colors.white,
+                        borderRadius: 12,
+                      ),
                     ),
                   ],
                 ),
@@ -126,6 +131,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 ),
                 child: Row(
                   children: [
+                    const SizedBox(width: 8),
                     BodyText(
                       '${state.favoriteProperties.length} ${state.favoriteProperties.length == 1 ? 'property' : 'properties'} saved',
                       fontWeight: FontWeight.w600,

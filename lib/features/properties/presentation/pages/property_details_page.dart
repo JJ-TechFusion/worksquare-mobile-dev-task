@@ -1,10 +1,9 @@
+import 'package:dreamdwell/core/utils/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:dreamdwell/core/shared/widgets/custom_text.dart';
 import 'package:dreamdwell/core/theme/app_colors.dart';
 import 'package:dreamdwell/features/properties/properties.dart';
-
-import '../../../../core/utils/constant.dart';
 
 class PropertyDetailsPage extends StatefulWidget {
   final int propertyId;
@@ -40,7 +39,6 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
 
           return CustomScrollView(
             slivers: [
-              // App Bar with Image
               SliverAppBar(
                 expandedHeight: 300,
                 pinned: true,
@@ -109,9 +107,8 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
                   ),
                 ),
                 actions: [
-                  // Favorite Button
                   Container(
-                    margin: const EdgeInsets.only(right: 16),
+                    margin: const EdgeInsets.only(right: 16, top: 16),
                     child: GestureDetector(
                       onTap: () {
                         propertyProvider.toggleFavorite(property.id);
@@ -153,20 +150,17 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Price
                             H1(property.price, fontSize: 32),
-                            verticalSpace(4),
+                            const SizedBox(height: 4),
                             BodySmall('Per Annum', color: Colors.grey[600]),
-                            verticalSpace(16),
+                            const SizedBox(height: 16),
 
-                            // Title
                             BodyText(
                               property.title,
                               fontWeight: FontWeight.w600,
                             ),
-                            verticalSpace(8),
+                            const SizedBox(height: 8),
 
-                            // Location
                             Row(
                               children: [
                                 Icon(
@@ -264,7 +258,7 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
                         ),
                       ),
 
-                      verticalSpace(24),
+                      const SizedBox(height: 24),
 
                       // Contact Section
                       Container(
@@ -286,7 +280,7 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
                               'Contact our agent for more information or to schedule a viewing.',
                               color: AppColor.lightText,
                             ),
-                            const SizedBox(height: 16),
+                            verticalSpace(16),
                             Row(
                               children: [
                                 Expanded(
@@ -364,10 +358,10 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
   Widget _buildFeatureItem(IconData icon, String value, String label) {
     return Column(
       children: [
-        Icon(icon, size: 22, color: AppColor.primary),
-        verticalSpace(8),
-        BodyText(value, fontWeight: FontWeight.w600),
-        verticalSpace(4),
+        Icon(icon, size: 28, color: AppColor.primary),
+        const SizedBox(height: 8),
+        H3(value),
+        const SizedBox(height: 4),
         BodySmall(label, color: Colors.grey[600]),
       ],
     );
@@ -399,9 +393,9 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
         return Row(
           children: [
             Icon(Icons.check_circle, size: 16, color: AppColor.green),
-            horizontalSpace(8),
+            const SizedBox(width: 8),
             Expanded(
-              child: BodySmall(amenities[index], color: AppColor.lightText),
+              child: BodySmall(amenities[index], color: Colors.grey[700]),
             ),
           ],
         );
