@@ -1,3 +1,7 @@
+import 'package:dreamdwell/core/shared/widgets/buttons/animated_button.dart';
+import 'package:dreamdwell/core/shared/widgets/buttons/roundedbutton.dart';
+import 'package:dreamdwell/core/utils/constant.dart';
+import 'package:dreamdwell/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:dreamdwell/core/shared/widgets/custom_text.dart';
 import 'package:dreamdwell/features/properties/domain/entities/property_entity.dart';
@@ -34,7 +38,6 @@ class PropertyCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Property Image with Status Tags and Favorite Button
             Stack(
               children: [
                 Container(
@@ -75,26 +78,26 @@ class PropertyCard extends StatelessWidget {
                   top: 16,
                   left: 16,
                   child: Row(
-                    children: property.status.map((status) {
-                      return Container(
-                        margin: const EdgeInsets.only(right: 8),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: BodySmall(
-                          status,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      );
-                    }).toList(),
+                    children:
+                        property.status.map((status) {
+                          return Container(
+                            margin: const EdgeInsets.only(right: 8),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 8,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: BodySmall(
+                              status,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          );
+                        }).toList(),
                   ),
                 ),
-                // Favorite Button (Top Right)
                 Positioned(
                   top: 16,
                   right: 16,
@@ -114,7 +117,9 @@ class PropertyCard extends StatelessWidget {
                         ],
                       ),
                       child: Icon(
-                        property.isFavorite ? Icons.favorite : Icons.favorite_border,
+                        property.isFavorite
+                            ? Icons.favorite
+                            : Icons.favorite_border,
                         color: property.isFavorite ? Colors.red : Colors.grey,
                         size: 20,
                       ),
@@ -130,78 +135,50 @@ class PropertyCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Price and Per Annum
+                  Row(children: [H1(property.price, fontSize: 28)]),
+                  verticalSpace(4),
+                  BodyText('Per Annum', color: Colors.grey[600]),
+                  verticalSpace(16),
                   Row(
-                    children: [
-                      H1(
-                        property.price,
-                        fontSize: 28,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 4),
-                  BodyText(
-                    'Per Annum',
-                    color: Colors.grey[600],
-                  ),
-                  const SizedBox(height: 16),
-                  // Property Features (Bedrooms, Bathrooms, Location)
-                  Row(
+                    spacing: 12,
                     children: [
                       _buildFeature(
                         Icons.bed_outlined,
                         '${property.bedrooms} Bedroom',
                       ),
-                      const SizedBox(width: 24),
                       _buildFeature(
                         Icons.bathroom_outlined,
                         '${property.bathrooms} Bathroom',
                       ),
-                      const SizedBox(width: 24),
                       _buildFeature(
                         Icons.location_on_outlined,
                         property.location,
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  verticalSpace(14),
+
                   // Property Title
                   BodyText(
                     property.title,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    fontSize: 20,
                     fontWeight: FontWeight.w600,
                   ),
-                  const SizedBox(height: 20),
+                  verticalSpace(14),
+
                   // View Button
                   SizedBox(
                     width: double.infinity,
                     height: 50,
-                    child: ElevatedButton(
-                      onPressed: onTap,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF4A90E2),
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        elevation: 0,
-                      ),
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          BodyText(
-                            'View Details',
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                          SizedBox(width: 8),
-                          Icon(
-                            Icons.arrow_forward,
-                            color: Colors.white,
-                            size: 20,
-                          ),
-                        ],
+                    child: AnimatedButton(
+                      onTap: onTap,
+                      child: CustomButton(
+                        title: 'View',
+                        color: AppColor.primary,
+                        textColor: Colors.white,
+                        borderRadius: 12,
+                        icon: Icons.arrow_forward,
                       ),
                     ),
                   ),
@@ -217,18 +194,12 @@ class PropertyCard extends StatelessWidget {
   Widget _buildFeature(IconData icon, String text) {
     return Row(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      spacing: 4,
       children: [
-        Icon(
-          icon,
-          size: 18,
-          color: Colors.grey[700],
-        ),
-        const SizedBox(width: 6),
-        BodySmall(
-          text,
-          color: Colors.grey[700],
-          fontWeight: FontWeight.w500,
-        ),
+        Icon(icon, size: 12, color: Colors.blueGrey),
+        Caption(text, color: Colors.grey[700], fontWeight: FontWeight.w500),
       ],
     );
   }

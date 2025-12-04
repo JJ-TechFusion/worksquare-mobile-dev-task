@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:dreamdwell/core/shared/widgets/custom_text.dart';
+import 'package:dreamdwell/core/shared/widgets/dropdown.dart';
+import 'package:dreamdwell/core/shared/widgets/textfields/custom_field.dart';
 import 'package:dreamdwell/core/theme/app_colors.dart';
+import 'package:dreamdwell/core/utils/constant.dart';
 
 class SearchFilterBar extends StatefulWidget {
   final Function(String query, String? location, String? propertyType) onSearch;
@@ -21,7 +24,6 @@ class SearchFilterBar extends StatefulWidget {
 
 class _SearchFilterBarState extends State<SearchFilterBar> {
   final TextEditingController _searchController = TextEditingController();
-  final FocusNode _searchFocusNode = FocusNode();
   String? _selectedLocation;
   String? _selectedPropertyType;
   Timer? _debounceTimer;
@@ -29,7 +31,6 @@ class _SearchFilterBarState extends State<SearchFilterBar> {
   @override
   void dispose() {
     _searchController.dispose();
-    _searchFocusNode.dispose();
     _debounceTimer?.cancel();
     super.dispose();
   }
@@ -73,7 +74,6 @@ class _SearchFilterBarState extends State<SearchFilterBar> {
            _selectedPropertyType != null;
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -90,63 +90,41 @@ class _SearchFilterBarState extends State<SearchFilterBar> {
       ),
       child: Column(
         children: [
-          // Search Bar
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.grey[100],
-              borderRadius: BorderRadius.circular(12),
-              border: _searchController.text.isNotEmpty
-                  ? Border.all(color: AppColor.primary.withValues(alpha: 0.3))
-                  : null,
-            ),
-            child: TextField(
-              controller: _searchController,
-              focusNode: _searchFocusNode,
-              onChanged: (value) {
-                setState(() {}); // Only update UI, don't search yet
-                _performSearch(); // Debounced search
-              },
-              onSubmitted: (value) => _performImmediateSearch(),
-              decoration: InputDecoration(
-                hintText: 'Search properties...',
-                prefixIcon: Icon(
-                  Icons.search, 
-                  color: _searchController.text.isNotEmpty 
-                      ? AppColor.primary 
-                      : Colors.grey,
-                ),
-                suffixIcon: _searchController.text.isNotEmpty
-                    ? GestureDetector(
-                        onTap: () {
-                          _searchController.clear();
-                          setState(() {});
-                          _performImmediateSearch();
-                        },
-                        child: Icon(
-                          Icons.clear,
-                          color: Colors.grey[600],
-                        ),
-                      )
-                    : null,
-                border: InputBorder.none,
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 12,
-                ),
-              ),
-            ),
+          // Search Field using TextInputField
+          TextInputField(
+            hintText: 'Search properties by title or location...',
+            controller: _searchController,
+            prefixIcon: const Icon(Icons.search),
+            suffixIcon: _searchController.text.isNotEmpty
+                ? GestureDetector(
+                    onTap: () {
+                      _searchController.clear();
+                      setState(() {});
+                      _performImmediateSearch();
+                    },
+                    child: const Icon(Icons.clear, color: Colors.grey),
+                  )
+                : null,
+            onChanged: (value) {
+              setState(() {}); // Update UI for suffix icon
+              _performSearch(); // Debounced search
+            },
+            onEditingDone: _performImmediateSearch,
           ),
-          const SizedBox(height: 12),
+          
+          verticalSpace(16),
+          
           // Filter Row
           Row(
             children: [
-              // Location Filter
+              // Location Filter using DropDownWidget
               Expanded(
-                child: _buildFilterDropdown(
-                  'Location',
-                  _selectedLocation,
-                  ['All Locations', ...widget.availableLocations],
-                  (value) {
+                child: DropDownWidget(
+                  hintText: 'All Locations',
+                  label: 'Location',
+                  initialValue: ['All Locations', ...widget.availableLocations],
+                  showSearch: true,
+                  onSelect: (value) {
                     setState(() {
                       _selectedLocation = value == 'All Locations' ? null : value;
                     });
@@ -154,14 +132,17 @@ class _SearchFilterBarState extends State<SearchFilterBar> {
                   },
                 ),
               ),
-              const SizedBox(width: 12),
-              // Property Type Filter
+              
+              horizontalSpace(16),
+              
+              // Property Type Filter using DropDownWidget
               Expanded(
-                child: _buildFilterDropdown(
-                  'Type',
-                  _selectedPropertyType,
-                  ['All Types', ...widget.availablePropertyTypes],
-                  (value) {
+                child: DropDownWidget(
+                  hintText: 'All Types',
+                  label: 'Property Type',
+                  initialValue: ['All Types', ...widget.availablePropertyTypes],
+                  showSearch: false,
+                  onSelect: (value) {
                     setState(() {
                       _selectedPropertyType = value == 'All Types' ? null : value;
                     });
@@ -169,60 +150,30 @@ class _SearchFilterBarState extends State<SearchFilterBar> {
                   },
                 ),
               ),
-              const SizedBox(width: 12),
-              // Clear Filters Button - only show when there are active filters
-              if (_hasActiveFilters)
-                GestureDetector(
-                  onTap: _clearFilters,
-                  child: Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: AppColor.primary.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Icon(
-                      Icons.clear,
-                      color: AppColor.primary,
-                      size: 20,
-                    ),
-                  ),
-                ),
             ],
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildFilterDropdown(
-    String hint,
-    String? selectedValue,
-    List<String> items,
-    Function(String?) onChanged,
-  ) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey[300]!),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
-          isExpanded: true,
-          hint: BodySmall(hint, color: Colors.grey[600]),
-          value: selectedValue,
-          items: items.map((String item) {
-            return DropdownMenuItem<String>(
-              value: item == 'All Locations' || item == 'All Types' ? null : item,
-              child: BodySmall(
-                item,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+          
+          // Clear Filters Button - only show when there are active filters
+          if (_hasActiveFilters) ...[
+            verticalSpace(12),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: _clearFilters,
+                icon: const Icon(Icons.clear, size: 18),
+                label: const BodyText('Clear All Filters'),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: AppColor.primary,
+                  side: BorderSide(color: AppColor.primary.withValues(alpha: 0.3)),
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
               ),
-            );
-          }).toList(),
-          onChanged: onChanged,
-        ),
+            ),
+          ],
+        ],
       ),
     );
   }

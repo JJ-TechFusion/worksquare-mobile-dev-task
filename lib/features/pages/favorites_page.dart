@@ -17,10 +17,8 @@ class _FavoritesPageState extends State<FavoritesPage> {
   @override
   void initState() {
     super.initState();
-    // Load favorites when the page initializes
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = context.read<PropertyProvider>();
-      // Load all properties first to ensure we have the data
       provider.loadProperties();
     });
   }
@@ -102,7 +100,9 @@ class _FavoritesPageState extends State<FavoritesPage> {
                       child: ElevatedButton.icon(
                         onPressed: () {
                           // Navigate to home tab to browse properties
-                          Navigator.of(context).pushReplacementNamed(RouteNames.main);
+                          Navigator.of(
+                            context,
+                          ).pushReplacementNamed(RouteNames.main);
                         },
                         icon: const Icon(Icons.search),
                         label: const Text('Browse Properties'),
@@ -127,14 +127,13 @@ class _FavoritesPageState extends State<FavoritesPage> {
               // Favorites Counter
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 12,
+                ),
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.favorite,
-                      size: 20,
-                      color: Colors.red,
-                    ),
+                    Icon(Icons.favorite, size: 20, color: Colors.red),
                     const SizedBox(width: 8),
                     BodyText(
                       '${state.favoriteProperties.length} ${state.favoriteProperties.length == 1 ? 'property' : 'properties'} saved',
@@ -146,15 +145,12 @@ class _FavoritesPageState extends State<FavoritesPage> {
                         onPressed: () {
                           _showClearAllDialog(context, propertyProvider);
                         },
-                        child: BodySmall(
-                          'Clear All',
-                          color: Colors.red,
-                        ),
+                        child: BodySmall('Clear All', color: Colors.red),
                       ),
                   ],
                 ),
               ),
-              
+
               // Favorites List
               Expanded(
                 child: ListView.builder(
@@ -188,7 +184,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
     );
   }
 
-  void _showClearAllDialog(BuildContext context, PropertyProvider propertyProvider) {
+  void _showClearAllDialog(
+    BuildContext context,
+    PropertyProvider propertyProvider,
+  ) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -207,14 +206,13 @@ class _FavoritesPageState extends State<FavoritesPage> {
             TextButton(
               onPressed: () {
                 // Clear all favorites
-                for (final property in propertyProvider.state.favoriteProperties) {
+                for (final property
+                    in propertyProvider.state.favoriteProperties) {
                   propertyProvider.toggleFavorite(property.id);
                 }
                 Navigator.of(context).pop();
               },
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.red,
-              ),
+              style: TextButton.styleFrom(foregroundColor: Colors.red),
               child: const Text('Clear All'),
             ),
           ],

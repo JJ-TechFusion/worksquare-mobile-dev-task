@@ -18,7 +18,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    // Load properties when the page initializes
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<PropertyProvider>(context, listen: false).loadProperties();
     });
@@ -28,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const H2('DreamDwell'),
+        title: const H2(''),
         backgroundColor: Colors.transparent,
         elevation: 0,
         actions: [
@@ -92,13 +91,13 @@ class _HomePageState extends State<HomePage> {
                     const H2('Find Your Dream Home'),
                     verticalSpace(8),
                     BodyText(
-                      'Discover ${state.properties.length} amazing properties',
+                      'Discover amazing properties',
                       color: Colors.grey[600],
                     ),
                   ],
                 ),
               ),
-              
+
               // Properties list
               Expanded(
                 child: ListView.builder(
@@ -112,7 +111,9 @@ class _HomePageState extends State<HomePage> {
                       onTap: () {
                         Navigator.of(context).pushNamed(
                           RouteNames.propertyDetails,
-                          arguments: PropertyDetailsArguments(propertyId: property.id),
+                          arguments: PropertyDetailsArguments(
+                            propertyId: property.id,
+                          ),
                         );
                       },
                       onFavoriteToggle: () {

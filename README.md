@@ -2,7 +2,7 @@
 
 A modern Flutter mobile application for browsing and managing property listings, built with clean architecture principles and featuring advanced search capabilities, favorites management, and smooth animations.
 
-## 📱 Features
+## Features
 
 - **Property Browsing**: Browse through a curated list of properties with detailed information
 - **Advanced Search**: Filter properties by location, property type, and text search
@@ -12,7 +12,7 @@ A modern Flutter mobile application for browsing and managing property listings,
 - **Responsive Design**: Optimized for different screen sizes and orientations
 - **Clean UI/UX**: Modern design with intuitive navigation and user-friendly interface
 
-## 🚀 How to Set Up and Run the App
+## How to Set Up and Run the App
 
 ### Prerequisites
 
@@ -113,7 +113,7 @@ lib/
 - **flutter_lints**: Code quality and style enforcement
 - **Dart Analyzer**: Static code analysis for error detection
 
-## 🎯 Approach and Thought Process
+## Approach and Thought Process
 
 ### Architecture Decision
 I chose **Clean Architecture** to ensure:
@@ -143,7 +143,7 @@ I chose **Clean Architecture** to ensure:
 - **Local-First**: Properties cached locally for offline access and better performance
 - **Favorites Persistence**: In-memory storage for demo (easily upgradeable to SharedPreferences/SQLite)
 
-## ⚠️ Limitations, Trade-offs, and Future Improvements
+## Limitations, Trade-offs, and Future Improvements
 
 ### Current Limitations
 
@@ -175,9 +175,9 @@ I chose **Clean Architecture** to ensure:
    - **Alternative**: Bloc for more complex state management scenarios
 
 2. **Navigation**
-   - **Choice**: Named routes over go_router
+   - **Choice**: Named routes over AutoRoute
    - **Reason**: Built-in Flutter solution, no additional dependencies
-   - **Alternative**: go_router for more advanced routing features
+   - **Alternative**: AutoRoute for route definitions and reducing of boilerplate
 
 3. **Animation Complexity**
    - **Choice**: Simple staggered animations over complex hero animations
@@ -215,14 +215,14 @@ I chose **Clean Architecture** to ensure:
 - **Real-time Updates**: WebSocket integration for live property updates
 - **Caching Strategy**: Multi-level caching (memory, disk, CDN)
 
-## 📊 Performance Considerations
+## Performance Considerations
 
 - **Lazy Loading**: Properties loaded on-demand to reduce initial load time
 - **Efficient Rendering**: ListView.builder for optimal memory usage
 - **Image Optimization**: Placeholder images to prevent layout shifts
 - **State Optimization**: Minimal rebuilds with targeted Provider consumers
 
-## 🧪 Testing Strategy
+## Testing Strategy
 
 While not implemented in this demo, the architecture supports:
 - **Unit Tests**: For use cases, repositories, and providers
@@ -230,7 +230,7 @@ While not implemented in this demo, the architecture supports:
 - **Integration Tests**: For complete user workflows
 - **Golden Tests**: For UI consistency across different devices
 
-## 📝 Code Quality
+## Code Quality
 
 - **Linting**: Strict linting rules with flutter_lints
 - **Documentation**: Comprehensive inline documentation
@@ -239,6 +239,6 @@ While not implemented in this demo, the architecture supports:
 
 ---
 
-**Built with ❤️ using Flutter**
+**Built using Flutter**
 
 *This project demonstrates modern Flutter development practices with clean architecture, efficient state management, and polished user experience.*
