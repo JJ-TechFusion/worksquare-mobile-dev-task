@@ -8,7 +8,10 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const H2('Profile'),
+        title: Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: const BodyText('Profile'),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -16,11 +19,7 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.person,
-              size: 80,
-              color: Colors.grey,
-            ),
+            Icon(Icons.person, size: 80, color: Colors.grey),
             SizedBox(height: 16),
             H2('Your Profile'),
             SizedBox(height: 8),

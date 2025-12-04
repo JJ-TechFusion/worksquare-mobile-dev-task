@@ -4,13 +4,12 @@ import 'package:dreamdwell/core/shared/widgets/custom_text.dart';
 import 'package:dreamdwell/core/theme/app_colors.dart';
 import 'package:dreamdwell/features/properties/properties.dart';
 
+import '../../../../core/utils/constant.dart';
+
 class PropertyDetailsPage extends StatefulWidget {
   final int propertyId;
 
-  const PropertyDetailsPage({
-    super.key,
-    required this.propertyId,
-  });
+  const PropertyDetailsPage({super.key, required this.propertyId});
 
   @override
   State<PropertyDetailsPage> createState() => _PropertyDetailsPageState();
@@ -34,9 +33,7 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
           final property = state.selectedProperty;
 
           if (property == null) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Center(child: CircularProgressIndicator());
           }
 
           final isFavorite = state.isPropertyFavorite(property.id);
@@ -88,23 +85,24 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
                         top: 60,
                         left: 16,
                         child: Row(
-                          children: property.status.map((status) {
-                            return Container(
-                              margin: const EdgeInsets.only(right: 8),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 6,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              child: BodySmall(
-                                status,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            );
-                          }).toList(),
+                          children:
+                              property.status.map((status) {
+                                return Container(
+                                  margin: const EdgeInsets.only(right: 8),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                    vertical: 6,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                  child: BodySmall(
+                                    status,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                );
+                              }).toList(),
                         ),
                       ),
                     ],
@@ -141,7 +139,7 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
                   ),
                 ],
               ),
-              
+
               // Property Details Content
               SliverToBoxAdapter(
                 child: Container(
@@ -156,24 +154,18 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             // Price
-                            H1(
-                              property.price,
-                              fontSize: 32,
-                            ),
-                            const SizedBox(height: 4),
-                            BodyText(
-                              'Per Annum',
-                              color: Colors.grey[600],
-                            ),
-                            const SizedBox(height: 16),
-                            
+                            H1(property.price, fontSize: 32),
+                            verticalSpace(4),
+                            BodySmall('Per Annum', color: Colors.grey[600]),
+                            verticalSpace(16),
+
                             // Title
-                            H2(
+                            BodyText(
                               property.title,
-                              fontSize: 24,
+                              fontWeight: FontWeight.w600,
                             ),
-                            const SizedBox(height: 8),
-                            
+                            verticalSpace(8),
+
                             // Location
                             Row(
                               children: [
@@ -186,7 +178,7 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
                                 Expanded(
                                   child: BodyText(
                                     property.location,
-                                    color: Colors.grey[700],
+                                    color: AppColor.lightText,
                                     fontSize: 16,
                                   ),
                                 ),
@@ -195,7 +187,7 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
                           ],
                         ),
                       ),
-                      
+
                       // Property Features
                       Container(
                         margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -235,9 +227,9 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
                           ],
                         ),
                       ),
-                      
+
                       const SizedBox(height: 24),
-                      
+
                       // Description Section
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -245,21 +237,21 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const H3('Description'),
-                            const SizedBox(height: 12),
+                            verticalSpace(12),
                             BodyText(
                               'This beautiful ${property.bedrooms}-bedroom property offers modern living in the heart of ${property.location}. '
                               'Featuring spacious rooms, contemporary finishes, and excellent amenities. '
                               'Perfect for families looking for comfort and convenience in a prime location. '
                               'The property boasts ${property.bathrooms} well-appointed bathrooms and ample living space throughout.',
-                              color: Colors.grey[700],
+                              color: AppColor.lightText,
                               fontSize: 16,
                             ),
                           ],
                         ),
                       ),
-                      
+
                       const SizedBox(height: 24),
-                      
+
                       // Amenities Section
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -267,14 +259,13 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const H3('Amenities'),
-                            const SizedBox(height: 16),
                             _buildAmenitiesGrid(),
                           ],
                         ),
                       ),
-                      
-                      const SizedBox(height: 24),
-                      
+
+                      verticalSpace(24),
+
                       // Contact Section
                       Container(
                         margin: const EdgeInsets.all(20),
@@ -290,10 +281,10 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const H3('Interested in this property?'),
-                            const SizedBox(height: 8),
+                            verticalSpace(8),
                             BodyText(
                               'Contact our agent for more information or to schedule a viewing.',
-                              color: Colors.grey[700],
+                              color: AppColor.lightText,
                             ),
                             const SizedBox(height: 16),
                             Row(
@@ -301,8 +292,9 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
                                 Expanded(
                                   child: ElevatedButton.icon(
                                     onPressed: () {
-                                      // TODO: Implement call functionality
-                                      ScaffoldMessenger.of(context).showSnackBar(
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
                                         const SnackBar(
                                           content: Text('Calling agent...'),
                                           behavior: SnackBarBehavior.floating,
@@ -314,7 +306,9 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: AppColor.primary,
                                       foregroundColor: Colors.white,
-                                      padding: const EdgeInsets.symmetric(vertical: 16),
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 16,
+                                      ),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(12),
                                       ),
@@ -325,8 +319,9 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
                                 Expanded(
                                   child: OutlinedButton.icon(
                                     onPressed: () {
-                                      // TODO: Implement message functionality
-                                      ScaffoldMessenger.of(context).showSnackBar(
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
                                         const SnackBar(
                                           content: Text('Opening messages...'),
                                           behavior: SnackBarBehavior.floating,
@@ -338,7 +333,9 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
                                     style: OutlinedButton.styleFrom(
                                       foregroundColor: AppColor.primary,
                                       side: BorderSide(color: AppColor.primary),
-                                      padding: const EdgeInsets.symmetric(vertical: 16),
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 16,
+                                      ),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(12),
                                       ),
@@ -350,7 +347,7 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
                           ],
                         ),
                       ),
-                      
+
                       // Bottom padding
                       const SizedBox(height: 20),
                     ],
@@ -367,18 +364,11 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
   Widget _buildFeatureItem(IconData icon, String value, String label) {
     return Column(
       children: [
-        Icon(
-          icon,
-          size: 28,
-          color: AppColor.primary,
-        ),
-        const SizedBox(height: 8),
-        H3(value),
-        const SizedBox(height: 4),
-        BodySmall(
-          label,
-          color: Colors.grey[600],
-        ),
+        Icon(icon, size: 22, color: AppColor.primary),
+        verticalSpace(8),
+        BodyText(value, fontWeight: FontWeight.w600),
+        verticalSpace(4),
+        BodySmall(label, color: Colors.grey[600]),
       ],
     );
   }
@@ -402,23 +392,16 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
         crossAxisCount: 2,
         childAspectRatio: 4,
         crossAxisSpacing: 12,
-        mainAxisSpacing: 8,
+        mainAxisSpacing: 6,
       ),
       itemCount: amenities.length,
       itemBuilder: (context, index) {
         return Row(
           children: [
-            Icon(
-              Icons.check_circle,
-              size: 16,
-              color: AppColor.green,
-            ),
-            const SizedBox(width: 8),
+            Icon(Icons.check_circle, size: 16, color: AppColor.green),
+            horizontalSpace(8),
             Expanded(
-              child: BodySmall(
-                amenities[index],
-                color: Colors.grey[700],
-              ),
+              child: BodySmall(amenities[index], color: AppColor.lightText),
             ),
           ],
         );

@@ -18,7 +18,6 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-    // Load properties when the page initializes
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<PropertyProvider>(context, listen: false).loadProperties();
     });
@@ -28,7 +27,10 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const H2('Search Properties'),
+        title: Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: const BodyText('Search Properties'),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -54,34 +56,32 @@ class _SearchPageState extends State<SearchPage> {
                   );
                 },
                 availableLocations: _extractUniqueLocations(state.properties),
-                availablePropertyTypes: _extractUniquePropertyTypes(state.properties),
+                availablePropertyTypes: _extractUniquePropertyTypes(
+                  state.properties,
+                ),
               ),
               if (state.status == PropertyStatus.loading)
                 Expanded(
                   child: ListView.builder(
                     padding: const EdgeInsets.all(16),
-                    itemCount: 5, // Show 5 shimmer items
+                    itemCount: 5,
                     itemBuilder: (context, index) => const PropertyShimmer(),
                   ),
                 )
               else if (state.properties.isEmpty)
-                Expanded(
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.search_off, size: 80, color: Colors.grey),
-                        verticalSpace(16),
-                        const H3('No properties found', color: Colors.grey),
-                        verticalSpace(16),
-                        ElevatedButton(
-                          onPressed: () {
-                            propertyProvider.clearSearchAndFilters();
-                          },
-                          child: const BodyText('Show All Properties'),
-                        ),
-                      ],
-                    ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 150),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.search_off,
+                        size: 80,
+                        color: Colors.grey,
+                      ),
+                      verticalSpace(16),
+                      const H3('No properties found', color: Colors.grey),
+                    ],
                   ),
                 )
               else
@@ -90,7 +90,10 @@ class _SearchPageState extends State<SearchPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0,
+                          vertical: 8.0,
+                        ),
                         child: BodySmall(
                           '${state.properties.length} properties found',
                           color: Colors.grey,
@@ -108,7 +111,9 @@ class _SearchPageState extends State<SearchPage> {
                               onTap: () {
                                 Navigator.of(context).pushNamed(
                                   RouteNames.propertyDetails,
-                                  arguments: PropertyDetailsArguments(propertyId: property.id),
+                                  arguments: PropertyDetailsArguments(
+                                    propertyId: property.id,
+                                  ),
                                 );
                               },
                               onFavoriteToggle: () {
@@ -135,7 +140,7 @@ class _SearchPageState extends State<SearchPage> {
   List<String> _extractUniquePropertyTypes(List<PropertyEntity> properties) {
     return properties
         .expand((p) => p.status)
-        .map((s) => s.split(' ').first) // Take first word for type
+        .map((s) => s.split(' ').first)
         .toSet()
         .toList()
       ..sort();

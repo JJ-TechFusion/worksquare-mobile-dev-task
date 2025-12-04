@@ -28,18 +28,12 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const H2('DreamDwell'),
+        title: Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: const BodyText(''),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              // Navigate to search page
-              Navigator.of(context).pushNamed(RouteNames.search);
-            },
-          ),
-        ],
       ),
       body: Consumer<PropertyProvider>(
         builder: (context, propertyProvider, child) {
@@ -98,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              
+
               // Properties list
               Expanded(
                 child: ListView.builder(
@@ -112,7 +106,9 @@ class _HomePageState extends State<HomePage> {
                       onTap: () {
                         Navigator.of(context).pushNamed(
                           RouteNames.propertyDetails,
-                          arguments: PropertyDetailsArguments(propertyId: property.id),
+                          arguments: PropertyDetailsArguments(
+                            propertyId: property.id,
+                          ),
                         );
                       },
                       onFavoriteToggle: () {

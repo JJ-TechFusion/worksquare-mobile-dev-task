@@ -1,3 +1,4 @@
+import 'package:dreamdwell/core/shared/widgets/buttons/animated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:dreamdwell/core/shared/widgets/custom_text.dart';
@@ -5,6 +6,8 @@ import 'package:dreamdwell/core/theme/app_colors.dart';
 import 'package:dreamdwell/core/routes/route_names.dart';
 import 'package:dreamdwell/core/routes/route_arguments.dart';
 import 'package:dreamdwell/features/properties/properties.dart';
+
+import '../../core/shared/widgets/buttons/roundedbutton.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
@@ -17,10 +20,8 @@ class _FavoritesPageState extends State<FavoritesPage> {
   @override
   void initState() {
     super.initState();
-    // Load favorites when the page initializes
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = context.read<PropertyProvider>();
-      // Load all properties first to ensure we have the data
       provider.loadProperties();
     });
   }
@@ -29,7 +30,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const H2('Favorites'),
+        title: Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: const BodyText('Favorites'),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -97,24 +101,13 @@ class _FavoritesPageState extends State<FavoritesPage> {
                       color: Colors.grey[500],
                     ),
                     const SizedBox(height: 24),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton.icon(
-                        onPressed: () {
-                          // Navigate to home tab to browse properties
-                          Navigator.of(context).pushReplacementNamed(RouteNames.main);
-                        },
-                        icon: const Icon(Icons.search),
-                        label: const Text('Browse Properties'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColor.primary,
-                          foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                      ),
+                    AnimatedButton(
+                      onTap: () {
+                        Navigator.of(
+                          context,
+                        ).pushReplacementNamed(RouteNames.main);
+                      },
+                      child: CustomButton(title: 'Browse Properties'),
                     ),
                   ],
                 ),
@@ -127,15 +120,12 @@ class _FavoritesPageState extends State<FavoritesPage> {
               // Favorites Counter
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 12,
+                ),
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.favorite,
-                      size: 20,
-                      color: Colors.red,
-                    ),
-                    const SizedBox(width: 8),
                     BodyText(
                       '${state.favoriteProperties.length} ${state.favoriteProperties.length == 1 ? 'property' : 'properties'} saved',
                       fontWeight: FontWeight.w600,
@@ -146,15 +136,12 @@ class _FavoritesPageState extends State<FavoritesPage> {
                         onPressed: () {
                           _showClearAllDialog(context, propertyProvider);
                         },
-                        child: BodySmall(
-                          'Clear All',
-                          color: Colors.red,
-                        ),
+                        child: BodySmall('Clear All', color: Colors.red),
                       ),
                   ],
                 ),
               ),
-              
+
               // Favorites List
               Expanded(
                 child: ListView.builder(
@@ -188,11 +175,14 @@ class _FavoritesPageState extends State<FavoritesPage> {
     );
   }
 
-  void _showClearAllDialog(BuildContext context, PropertyProvider propertyProvider) {
+  void _showClearAllDialog(
+    BuildContext context,
+    PropertyProvider propertyProvider,
+  ) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
+        return AlertDialog.adaptive(
           title: const H3('Clear All Favorites'),
           content: const BodyText(
             'Are you sure you want to remove all properties from your favorites? This action cannot be undone.',
@@ -207,14 +197,13 @@ class _FavoritesPageState extends State<FavoritesPage> {
             TextButton(
               onPressed: () {
                 // Clear all favorites
-                for (final property in propertyProvider.state.favoriteProperties) {
+                for (final property
+                    in propertyProvider.state.favoriteProperties) {
                   propertyProvider.toggleFavorite(property.id);
                 }
                 Navigator.of(context).pop();
               },
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.red,
-              ),
+              style: TextButton.styleFrom(foregroundColor: Colors.red),
               child: const Text('Clear All'),
             ),
           ],

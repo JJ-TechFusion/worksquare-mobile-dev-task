@@ -20,10 +20,8 @@ class _PropertyListPageState extends State<PropertyListPage> {
   @override
   void initState() {
     super.initState();
-    // Load properties when the page initializes
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = context.read<PropertyProvider>();
-      // Clear any existing search state and load fresh properties
       provider.clearSearch();
       provider.loadProperties();
     });
@@ -64,7 +62,6 @@ class _PropertyListPageState extends State<PropertyListPage> {
         builder: (context, propertyProvider, child) {
           final state = propertyProvider.state;
 
-          // Extract filters when properties are loaded
           if (state.hasProperties && _availableLocations.isEmpty) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               _extractFiltersFromProperties(state.properties);
@@ -73,29 +70,28 @@ class _PropertyListPageState extends State<PropertyListPage> {
 
           return Column(
             children: [
-              // Search and Filter Bar
               if (state.hasProperties || state.isLoading)
                 SearchFilterBar(
                   onSearch: _onSearch,
                   availableLocations: _availableLocations,
                   availablePropertyTypes: _availablePropertyTypes,
                 ),
-              
-              // Results Counter
+
               if (state.hasProperties)
                 Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 8,
+                  ),
                   child: BodySmall(
                     '${state.properties.length} ${state.properties.length == 1 ? 'property' : 'properties'} found',
                     color: Colors.grey[600],
                   ),
                 ),
-              
+
               // Content Area
-              Expanded(
-                child: _buildContent(state, propertyProvider),
-              ),
+              Expanded(child: _buildContent(state, propertyProvider)),
             ],
           );
         },
@@ -107,7 +103,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
     if (state.isLoading) {
       return ListView.builder(
         padding: const EdgeInsets.all(20),
-        itemCount: 3, // Show 3 shimmer items
+        itemCount: 3,
         itemBuilder: (context, index) => const PropertyShimmer(),
       );
     }
@@ -117,11 +113,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.error_outline,
-              size: 64,
-              color: AppColor.errorColor,
-            ),
+            Icon(Icons.error_outline, size: 64, color: AppColor.errorColor),
             const SizedBox(height: 16),
             BodyText(
               state.errorMessage ?? 'Something went wrong',
@@ -153,7 +145,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
               ),
               const SizedBox(height: 24),
               H3(
-                state.isSearching 
+                state.isSearching
                     ? 'No properties match your search'
                     : 'No properties found',
                 textAlign: TextAlign.center,
@@ -209,9 +201,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
           onTap: () {
             Navigator.of(context).pushNamed(
               RouteNames.propertyDetails,
-              arguments: PropertyDetailsArguments(
-                propertyId: property.id,
-              ),
+              arguments: PropertyDetailsArguments(propertyId: property.id),
             );
           },
         );
