@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dreamdwell/core/shared/widgets/custom_text.dart';
+import 'package:dreamdwell/core/shared/widgets/smart_image.dart';
 import 'package:dreamdwell/core/theme/app_colors.dart';
 import 'package:dreamdwell/core/utils/constant.dart';
 
@@ -33,10 +34,21 @@ class OnboardingPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            _getIconForImage(image),
-            size: isLandscape ? 120 : 200,
-            color: AppColor.primary,
+          Container(
+            height: isLandscape ? 200 : 300,
+            width: double.infinity,
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: SmartImage(
+                imageUrl: image,
+                fit: BoxFit.cover,
+                fallbackIcon: _getIconForImage(image),
+                fallbackIconSize: 80,
+                progressStrokeWidth: 3,
+                backgroundColor: Colors.transparent,
+              ),
+            ),
           ),
           verticalSpace(isLandscape ? 20 : 40),
 

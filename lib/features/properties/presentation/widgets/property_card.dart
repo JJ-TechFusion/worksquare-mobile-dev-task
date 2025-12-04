@@ -4,6 +4,7 @@ import 'package:dreamdwell/core/utils/constant.dart';
 import 'package:dreamdwell/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:dreamdwell/core/shared/widgets/custom_text.dart';
+import 'package:dreamdwell/core/shared/widgets/smart_image.dart';
 import 'package:dreamdwell/features/properties/domain/entities/property_entity.dart';
 
 class PropertyCard extends StatelessWidget {
@@ -55,21 +56,11 @@ class PropertyCard extends StatelessWidget {
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20),
                     ),
-                    child: Image.asset(
-                      'assets/images/${property.image}',
+                    child: SmartImage(
+                      imageUrl: property.image,
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          color: Colors.grey[300],
-                          child: const Center(
-                            child: Icon(
-                              Icons.home,
-                              size: 60,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        );
-                      },
+                      fallbackIcon: Icons.home,
+                      fallbackIconSize: 60,
                     ),
                   ),
                 ),

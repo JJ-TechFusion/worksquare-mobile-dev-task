@@ -30,22 +30,25 @@ class _MyOnboardingScreenState extends State<OnboardingScreen> {
 
   final pages = [
     const OnboardingPage(
-      image: 'onboard1',
-      title: 'Discover Properties',
+      image:
+          'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop',
+      title: 'Discover Amazing Properties',
       subtitle:
-          'Browse through thousands of verified properties and find your perfect home with advanced search filters.',
+          'Explore thousands of verified homes, apartments, and luxury properties with powerful search and filter options.',
     ),
     const OnboardingPage(
-      image: 'onboard2',
-      title: 'Save Favorites',
+      image:
+          'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800&h=600&fit=crop',
+      title: 'Save Your Favorites',
       subtitle:
-          'Create your wishlist by saving properties you love and get notified about price changes and updates.',
+          'Build your personal wishlist of dream properties and never miss out on price updates or new listings.',
     ),
     const OnboardingPage(
-      image: 'onboard3',
-      title: 'Find Your Dream Home',
+      image:
+          'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&h=600&fit=crop',
+      title: 'Your Dream Home Awaits',
       subtitle:
-          'Connect with property owners and agents to schedule viewings and make your dream home a reality.',
+          'Connect directly with property owners and trusted agents to schedule viewings and secure your perfect home.',
     ),
   ];
 

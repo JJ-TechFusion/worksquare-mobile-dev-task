@@ -11,7 +11,7 @@
       "location": "Lekki, Lagos",
       "title": "Brand New 4 Bedroom Fully Detached Duplex With BQ",
       "status": ["House", "For Rent"],
-      "image": "property1.jpg"
+      "image": "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&h=600&fit=crop"
     },
     {
       "id": 2,
@@ -21,7 +21,7 @@
       "location": "Gwarinpa, Abuja",
       "title": "Luxury 5 Bedroom Duplex with Pool",
       "status": ["House", "For Rent"],
-      "image": "property2.jpg"
+      "image": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&h=600&fit=crop"
     },
     {
       "id": 3,
@@ -31,7 +31,7 @@
       "location": "Ikeja, Lagos",
       "title": "3 Bedroom Flat with Modern Finishing",
       "status": ["Flat", "For Rent"],
-      "image": "property3.jpg"
+      "image": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop"
     },
     {
       "id": 4,
@@ -41,7 +41,7 @@
       "location": "Maitama, Abuja",
       "title": "Spacious 4 Bedroom Terrace in Secure Estate",
       "status": ["Terrace", "For Rent"],
-      "image": "property4.jpg"
+      "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop"
     },
     {
       "id": 5,
@@ -51,7 +51,7 @@
       "location": "Lekki Phase 1, Lagos",
       "title": "Massive 6 Bedroom Mansion with 2 Living Rooms",
       "status": ["House", "For Lease"],
-      "image": "property5.jpg"
+      "image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop"
     },
     {
       "id": 6,
@@ -61,7 +61,7 @@
       "location": "Abeokuta, Ogun",
       "title": "Affordable 2 Bedroom Bungalow in Gated Estate",
       "status": ["House", "For Rent"],
-      "image": "property6.jpg"
+      "image": "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&h=600&fit=crop"
     },
     {
       "id": 7,
@@ -71,7 +71,7 @@
       "location": "Asokoro, Abuja",
       "title": "Fully Serviced 5 Bedroom Duplex",
       "status": ["House", "For Rent"],
-      "image": "property7.jpg"
+      "image": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop"
     },
     {
       "id": 8,
@@ -81,7 +81,7 @@
       "location": "Surulere, Lagos",
       "title": "One Bedroom Apartment for Single Professionals",
       "status": ["Flat", "For Rent"],
-      "image": "property8.jpg"
+      "image": "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800&h=600&fit=crop"
     },
     {
       "id": 9,
@@ -91,7 +91,7 @@
       "location": "Wuse 2, Abuja",
       "title": "Elegant 4 Bedroom Terrace in Central Abuja",
       "status": ["Terrace", "For Lease"],
-      "image": "property9.jpg"
+      "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop"
     },
     {
       "id": 10,
@@ -101,7 +101,7 @@
       "location": "Magodo, Lagos",
       "title": "3 Bedroom Apartment with Ample Parking",
       "status": ["Flat", "For Rent"],
-      "image": "property10.jpg"
+      "image": "https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=800&h=600&fit=crop"
     },
     {
       "id": 11,
@@ -111,7 +111,7 @@
       "location": "Ikoyi, Lagos",
       "title": "High-End 5 Bedroom Penthouse with Ocean View",
       "status": ["Penthouse", "For Lease"],
-      "image": "property11.jpg"
+      "image": "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop"
     },
     {
       "id": 12,
@@ -121,7 +121,7 @@
       "location": "Yaba, Lagos",
       "title": "Newly Renovated 4 Bedroom Duplex",
       "status": ["House", "For Rent"],
-      "image": "property12.jpg"
+      "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop"
     },
     {
       "id": 13,
@@ -131,7 +131,7 @@
       "location": "Lugbe, Abuja",
       "title": "Spacious Duplex with Modern Kitchen",
       "status": ["Duplex", "For Rent"],
-      "image": "property13.jpg"
+      "image": "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&h=600&fit=crop"
     },
     {
       "id": 14,
@@ -141,7 +141,7 @@
       "location": "Ogudu, Lagos",
       "title": "3 Bedroom Unit in a Gated Community",
       "status": ["Flat", "For Rent"],
-      "image": "property14.jpg"
+      "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop"
     },
     {
       "id": 15,
@@ -151,7 +151,7 @@
       "location": "Banana Island, Lagos",
       "title": "Ultra-Modern Mansion with Elevator & Cinema",
       "status": ["House", "For Lease"],
-      "image": "property15.jpg"
+      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop"
     },
     {
       "id": 16,
@@ -161,7 +161,7 @@
       "location": "Apapa, Lagos",
       "title": "Budget Friendly 2 Bedroom Flat",
       "status": ["Flat", "For Rent"],
-      "image": "property16.jpg"
+      "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop"
     },
     {
       "id": 17,
@@ -171,7 +171,7 @@
       "location": "Utako, Abuja",
       "title": "Executive 4 Bedroom Duplex with BQ",
       "status": ["Duplex", "For Rent"],
-      "image": "property17.jpg"
+      "image": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop"
     },
     {
       "id": 18,
@@ -181,7 +181,7 @@
       "location": "Lekki, Lagos",
       "title": "Fully Furnished 4 Bedroom Short Let",
       "status": ["Short Let", "For Rent"],
-      "image": "property18.jpg"
+      "image": "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&h=600&fit=crop"
     },
     {
       "id": 19,
@@ -191,7 +191,7 @@
       "location": "Jahi, Abuja",
       "title": "Brand New 4 Bedroom Semi Detached",
       "status": ["House", "For Lease"],
-      "image": "property19.jpg"
+      "image": "https://images.unsplash.com/photo-1600047509358-9dc75507daeb?w=800&h=600&fit=crop"
     },
     {
       "id": 20,
@@ -201,7 +201,7 @@
       "location": "Ojodu Berger, Lagos",
       "title": "Affordable 3 Bedroom Apartment",
       "status": ["Flat", "For Rent"],
-      "image": "property20.jpg"
+      "image": "https://images.unsplash.com/photo-1600047509782-20d39509f26d?w=800&h=600&fit=crop"
     },
     {
       "id": 21,
@@ -211,7 +211,7 @@
       "bathrooms": 4,
       "location": "Lekki, Lagos",
       "status": ["House", "For Rent"],
-      "image": "property1.jpg"
+      "image": "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800&h=600&fit=crop"
     },
     {
       "id": 22,
@@ -221,7 +221,7 @@
       "bathrooms": 3,
       "location": "Gwarinpa, Abuja",
       "status": ["House", "For Rent"],
-      "image": "property2.jpg"
+      "image": "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&h=600&fit=crop"
     },
     {
       "id": 23,
@@ -231,7 +231,7 @@
       "bathrooms": 6,
       "location": "Maitama, Abuja",
       "status": ["House", "For Rent"],
-      "image": "property3.jpg"
+      "image": "https://images.unsplash.com/photo-1600607688960-e095ff8d5c6b?w=800&h=600&fit=crop"
     },
     {
       "id": 24,
@@ -241,7 +241,7 @@
       "bathrooms": 2,
       "location": "Ikeja, Lagos",
       "status": ["Apartment", "For Rent"],
-      "image": "property4.jpg"
+      "image": "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?w=800&h=600&fit=crop"
     },
     {
       "id": 25,
@@ -251,7 +251,7 @@
       "bathrooms": 4,
       "location": "Ajah, Lagos",
       "status": ["House", "For Rent"],
-      "image": "property5.jpg"
+      "image": "https://images.unsplash.com/photo-1600607688888-1b8ad4b7b7b7?w=800&h=600&fit=crop"
     },
     {
       "id": 26,
@@ -261,7 +261,7 @@
       "bathrooms": 1,
       "location": "Yaba, Lagos",
       "status": ["Apartment", "For Rent"],
-      "image": "property6.jpg"
+      "image": "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&h=600&fit=crop"
     },
     {
       "id": 27,
@@ -271,7 +271,7 @@
       "bathrooms": 3,
       "location": "Abule Egba, Lagos",
       "status": ["Flat", "For Rent"],
-      "image": "property7.jpg"
+      "image": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop"
     },
     {
       "id": 28,
@@ -281,7 +281,7 @@
       "bathrooms": 2,
       "location": "Wuse 2, Abuja",
       "status": ["Apartment", "Shortlet"],
-      "image": "property8.jpg"
+      "image": "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800&h=600&fit=crop"
     },
     {
       "id": 29,
@@ -291,7 +291,7 @@
       "bathrooms": 5,
       "location": "Asokoro, Abuja",
       "status": ["House", "For Rent"],
-      "image": "property9.jpg"
+      "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop"
     },
     {
       "id": 30,
@@ -301,7 +301,7 @@
       "bathrooms": 3,
       "location": "Chevron, Lekki",
       "status": ["Flat", "For Rent"],
-      "image": "property10.jpg"
+      "image": "https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=800&h=600&fit=crop"
     },
     {
       "id": 31,
@@ -311,7 +311,7 @@
       "bathrooms": 2,
       "location": "Gbagada, Lagos",
       "status": ["Apartment", "For Rent"],
-      "image": "property11.jpg"
+      "image": "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop"
     },
     {
       "id": 32,
@@ -321,7 +321,7 @@
       "bathrooms": 1,
       "location": "Ilupeju, Lagos",
       "status": ["Apartment", "For Rent"],
-      "image": "property12.jpg"
+      "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop"
     },
     {
       "id": 33,
@@ -331,7 +331,7 @@
       "bathrooms": 4,
       "location": "Osapa, Lekki",
       "status": ["House", "For Rent"],
-      "image": "property13.jpg"
+      "image": "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&h=600&fit=crop"
     },
     {
       "id": 34,
@@ -341,7 +341,7 @@
       "bathrooms": 4,
       "location": "Life Camp, Abuja",
       "status": ["Terrace", "For Rent"],
-      "image": "property14.jpg"
+      "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop"
     },
     {
       "id": 35,
@@ -351,7 +351,7 @@
       "bathrooms": 4,
       "location": "Ikoyi, Lagos",
       "status": ["Penthouse", "For Rent"],
-      "image": "property15.jpg"
+      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop"
     },
     {
       "id": 36,
@@ -361,7 +361,7 @@
       "bathrooms": 1,
       "location": "Katampe, Abuja",
       "status": ["Apartment", "For Rent"],
-      "image": "property16.jpg"
+      "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop"
     },
     {
       "id": 37,
@@ -371,7 +371,7 @@
       "bathrooms": 5,
       "location": "Lekki Phase 1, Lagos",
       "status": ["House", "For Rent"],
-      "image": "property17.jpg"
+      "image": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop"
     },
     {
       "id": 38,
@@ -381,7 +381,7 @@
       "bathrooms": 1,
       "location": "Victoria Island, Lagos",
       "status": ["Apartment", "Shortlet"],
-      "image": "property18.jpg"
+      "image": "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&h=600&fit=crop"
     },
     {
       "id": 39,
@@ -391,7 +391,7 @@
       "bathrooms": 6,
       "location": "Banana Island, Lagos",
       "status": ["Mansion", "For Rent"],
-      "image": "property19.jpg"
+      "image": "https://images.unsplash.com/photo-1600047509358-9dc75507daeb?w=800&h=600&fit=crop"
     },
     {
       "id": 40,
@@ -401,7 +401,7 @@
       "bathrooms": 3,
       "location": "Lokogoma, Abuja",
       "status": ["Apartment", "For Rent"],
-      "image": "property20.jpg"
+      "image": "https://images.unsplash.com/photo-1600047509782-20d39509f26d?w=800&h=600&fit=crop"
     }
   ]
 }
